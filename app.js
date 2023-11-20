@@ -11,4 +11,8 @@ const user = require("./Routes/User");
 app.use("/api/quick",task);
 app.use("/api/quick",user);
 
+app.get('/',(req,res)=>{
+    res.send('hii this is api');
+})
+
 module.exports = app;
