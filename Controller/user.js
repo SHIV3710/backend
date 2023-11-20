@@ -1,5 +1,7 @@
 const Task = require("../Model/Task");
 const User = require("../Model/User");
+const NodeCache = require('node-cache');
+
 
 exports.addUser = async(req,res) => {
 
@@ -45,14 +47,18 @@ exports.getall = async (req,res) => {
                 message: "User not found",
             })
         }
-            console.log(users);
 
-            let result = await Promise.all(
-                users.map(async (idx)=>{
-                    const name = idx.Name;
-                    return name;
-                }),
+        
+        let result = await Promise.all(
+            users.map(async (idx)=>{
+                const name = {
+                    Name:idx.Name,
+                    Available:idx.Available,
+                };
+                return name;
+            }),
             )
+            console.log(result);
             return res.status(200).json({
             success: true,
             result,
